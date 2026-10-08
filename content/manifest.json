@@ -1,0 +1,25 @@
+{
+ "schema": 1,
+ "version": "0.1.0",
+ "minApp": 1,
+ "entry": "game/index.html",
+ "packs": {
+  "core": {
+   "required": true
+  }
+ },
+ "files": [
+  {
+   "path": "game/index.html",
+   "sha256": "20f768b11b0d937d44170f53397825581244bfe42e7d2ac8e900d88d3f3e2762",
+   "size": 1574,
+   "pack": "core"
+  },
+  {
+   "path": "layouts/lobby.json",
+   "sha256": "91c28d59d31d15dc0f8b1fe055ec13c57a28e4870add6ea949c1fceb4ffc5eb4",
+   "size": 78,
+   "pack": "core"
+  }
+ ]
+}

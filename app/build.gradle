@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.yanaverse.yanavega'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.yanaverse.yanavega'
+        minSdk 24            // Android 7.0
+        targetSdk 36         // Android 16
+        versionCode 1
+        versionName '0.1.0'
+        // Pure Java/WebView app: no native code, so one APK runs on
+        // 32-bit (armeabi-v7a, x86) and 64-bit (arm64-v8a, x86_64) devices.
+    }
+
+    signingConfigs {
+        if (System.getenv('KEYSTORE_FILE')) {
+            // your own private key (GitHub secrets) -> recommended for real releases
+            release {
+                storeFile file(System.getenv('KEYSTORE_FILE'))
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('KEY_PASSWORD')
+            }
+        } else if (file('yanavega-test.jks').exists()) {
+            // PUBLIC test key committed in the repo so every CI build can update the previous install.
+            // Replace with a private key (secrets above) before any wide release.
+            release {
+                storeFile file('yanavega-test.jks')
+                storePassword 'yanavega'
+                keyAlias 'yanavega-test'
+                keyPassword 'yanavega'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.findByName('release') ?: signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}

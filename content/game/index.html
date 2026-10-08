@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>YANAVEGA</title>
+<style>
+  html,body{margin:0;height:100%;background:#0a0612;color:#f1f1f5;font-family:system-ui,sans-serif;overflow:hidden}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+       background:radial-gradient(circle at 50% 40%,#2a1245,#0a0612 70%)}
+  h1{margin:0;font-size:44px;letter-spacing:.2em;background:linear-gradient(90deg,#ff4fc8,#b57cff,#5c8bff);-webkit-background-clip:text;color:transparent}
+  .ok{opacity:.85}.small{opacity:.55;font-size:13px}
+  .row{display:flex;gap:10px;margin-top:8px}
+  button{background:#ffffff14;border:1px solid #ffffff30;color:#fff;border-radius:12px;padding:12px 22px;font-size:16px}
+</style></head><body>
+<h1>YANAVEGA</h1>
+<div class="ok">Game data downloaded from the repo and loaded from app storage ✓</div>
+<div class="small" id="v"></div>
+<div class="row" id="btns"></div>
+<script>
+  const N = window.YanaNative;
+  document.getElementById('v').textContent = N ? ('app ' + N.getAppVersion() + '  ·  game data ' + N.getContentVersion()) : 'open inside the Yanavega app to see versions';
+  fetch('../layouts/lobby.json').then(r => r.json()).then(L => {
+    document.getElementById('btns').innerHTML = L.buttons.map(b => '<button>' + b + '</button>').join('');
+  });
+  // optional packs example: N.requestPack('cars'); window.onYanaPack = (name, pct, done) => console.log(name, pct, done);
+</script></body></html>

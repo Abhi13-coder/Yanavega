@@ -1,0 +1,8 @@
+<resources>
+    <!-- Android 12+: system splash = plain dark background, no icon, so our own animated logo takes over seamlessly -->
+    <style name="Theme.Yanavega" parent="Theme.Yanavega.Base">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowSplashScreenBackground">@color/yv_bg</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/yv_transparent</item>
+    </style>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Where the app downloads its game data from.
+     URL used:  https://raw.githubusercontent.com/<owner>/<name>/<branch>/<content_dir>/manifest.json -->
+<resources>
+    <string name="repo_owner" translatable="false">Abhi13-coder</string>
+    <string name="repo_name" translatable="false">Yanavega</string>
+    <string name="repo_branch" translatable="false">main</string>
+    <string name="content_dir" translatable="false">content</string>
+    <!-- Virtual host the game's WebView uses to read downloaded files (no real network). -->
+    <string name="content_host" translatable="false">game.yanavega.local</string>
+</resources>

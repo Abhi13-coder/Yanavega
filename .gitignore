@@ -1,0 +1,12 @@
+*.iml
+.gradle/
+local.properties
+/build/
+/app/build/
+.idea/
+*.jks
+!app/yanavega-test.jks
+*.keystore
+*.apk
+*.aab
+.DS_Store
