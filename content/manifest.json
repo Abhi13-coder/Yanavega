@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "0.1.0",
+ "version": "1.0.1",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -19,6 +19,12 @@
    "path": "layouts/lobby.json",
    "sha256": "91c28d59d31d15dc0f8b1fe055ec13c57a28e4870add6ea949c1fceb4ffc5eb4",
    "size": 78,
+   "pack": "core"
+  },
+  {
+   "path": "yanavega-lobby.zip",
+   "sha256": "6a6cf6a3fdc2957c450063ca126e3045714c32705e9c0e12eb4b4975145bf682",
+   "size": 11358816,
    "pack": "core"
   }
  ]
