@@ -1,6 +1,6 @@
 name: Build APK
 on:
-  push:
+  workflow_dispatch:
     branches: [main]
     tags: ['v*']
     paths-ignore: ['content/**', '**.md']
