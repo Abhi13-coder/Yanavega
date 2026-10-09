@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "0.2.0",
+ "version": "1.0.2",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -169,6 +169,12 @@
    "path": "game/stage.js",
    "sha256": "92836030eaff277314979328b67cfc79a5a70c93f26189d053292f6f9caffd29",
    "size": 8073,
+   "pack": "core"
+  },
+  {
+   "path": "layouts/lobby.json",
+   "sha256": "91c28d59d31d15dc0f8b1fe055ec13c57a28e4870add6ea949c1fceb4ffc5eb4",
+   "size": 78,
    "pack": "core"
   },
   {
