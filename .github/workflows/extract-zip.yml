@@ -1,0 +1,87 @@
+
+name: Extract ZIP
+
+on:
+  workflow_dispatch:
+    inputs:
+      destination:
+        description: "Folder containing one ZIP"
+        required: true
+        default: "content"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract and merge
+        env:
+          DEST: ${{ inputs.destination }}
+        run: |
+          python3 - <<'PY'
+          import os, zipfile, shutil, stat, subprocess
+          from pathlib import Path, PurePosixPath
+
+          root = Path.cwd().resolve()
+          rel = PurePosixPath(os.environ["DEST"].strip("/"))
+          if not rel.parts or any(x in ("..", ".", ".git", ".github") for x in rel.parts):
+              raise SystemExit("Invalid destination")
+          dest = (root / Path(*rel.parts)).resolve()
+          if root not in dest.parents or not dest.is_dir():
+              raise SystemExit("Destination folder must exist")
+
+          zips = list(dest.glob("*.zip")) + list(dest.glob("*.ZIP"))
+          if len(zips) != 1:
+              raise SystemExit(f"Expected one ZIP, found {len(zips)}")
+
+          with zipfile.ZipFile(zips[0]) as z:
+              files = []
+              for i in z.infolist():
+                  p = PurePosixPath(i.filename.replace("\\", "/"))
+                  if p.is_absolute() or ".." in p.parts:
+                      raise SystemExit(f"Unsafe path: {i.filename}")
+                  if i.is_dir():
+                      continue
+                  if stat.S_ISLNK(i.external_attr >> 16):
+                      raise SystemExit("ZIP symlinks are not allowed")
+                  files.append((i, p))
+              if not files:
+                  raise SystemExit("ZIP is empty")
+
+              paths = [p for _, p in files]
+              strip = 0
+              if rel.as_posix() == "content":
+                  if all(p.parts[0] == "content" for p in paths):
+                      strip = 1
+                  elif all(len(p.parts) >= 3 and p.parts[1] == "content" for p in paths) and len({p.parts[0] for p in paths}) == 1:
+                      strip = 2
+
+              for i, p in files:
+                  parts = p.parts[strip:]
+                  if not parts:
+                      continue
+                  out = (dest.joinpath(*parts)).resolve()
+                  if dest not in out.parents:
+                      raise SystemExit("Unsafe output path")
+                  out.parent.mkdir(parents=True, exist_ok=True)
+                  with z.open(i) as src, out.open("wb") as dst:
+                      shutil.copyfileobj(src, dst)
+
+          target = rel.as_posix()
+          subprocess.run(["git", "add", "--", target], check=True)
+          if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+              print("No changes.")
+              raise SystemExit(0)
+          subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+          subprocess.run(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"], check=True)
+          subprocess.run(["git", "commit", "-m", f"Extract ZIP into {target}/"], check=True)
+          PY
+
+      - name: Push
+        run: git push origin "HEAD:${GITHUB_REF_NAME}"
+        
