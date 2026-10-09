@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>YANAVEGA</title>
-<style>
-  html,body{margin:0;height:100%;background:#0a0612;color:#f1f1f5;font-family:system-ui,sans-serif;overflow:hidden}
-  body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-       background:radial-gradient(circle at 50% 40%,#2a1245,#0a0612 70%)}
-  h1{margin:0;font-size:44px;letter-spacing:.2em;background:linear-gradient(90deg,#ff4fc8,#b57cff,#5c8bff);-webkit-background-clip:text;color:transparent}
-  .ok{opacity:.85}.small{opacity:.55;font-size:13px}
-  .row{display:flex;gap:10px;margin-top:8px}
-  button{background:#ffffff14;border:1px solid #ffffff30;color:#fff;border-radius:12px;padding:12px 22px;font-size:16px}
-</style></head><body>
-<h1>YANAVEGA</h1>
-<div class="ok">Game data downloaded from the repo and loaded from app storage ✓</div>
-<div class="small" id="v"></div>
-<div class="row" id="btns"></div>
-<script>
-  const N = window.YanaNative;
-  document.getElementById('v').textContent = N ? ('app ' + N.getAppVersion() + '  ·  game data ' + N.getContentVersion()) : 'open inside the Yanavega app to see versions';
-  fetch('../layouts/lobby.json').then(r => r.json()).then(L => {
-    document.getElementById('btns').innerHTML = L.buttons.map(b => '<button>' + b + '</button>').join('');
-  });
-  // optional packs example: N.requestPack('cars'); window.onYanaPack = (name, pct, done) => console.log(name, pct, done);
-</script></body></html>
+<html lang="en" data-theme="Neon Dusk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#07040d"><title>YANAVEGA</title>
+<link rel="stylesheet" href="/game/lobby.css">
+</head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <filter id="cb-Protanopia"><feColorMatrix type="matrix" values="0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0"/></filter>
+ <filter id="cb-Deuteranopia"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter>
+ <filter id="cb-Tritanopia"><feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"/></filter></defs></svg>
+<div id="app">
+ <div id="bg"></div><div id="bgshade"></div>
+ <div class="fx" id="fx-carbon"></div><div class="fx" id="fx-bokeh"></div><div class="fx" id="fx-streak"></div>
+ <canvas id="stage"></canvas>
+ <div class="fx" id="fx-grain"></div>
+ <div id="ui"></div>
+ <div id="drawer" class="drawer"></div>
+ <div id="launch"></div>
+ <div id="modal"></div><div id="toasts"></div><div id="fps"></div>
+ <div id="boot"><div style="text-align:center"><img src="/ui/logo_full.svg" alt=""><div class="bl" style="margin:2vh auto 0"><i></i></div></div></div>
+</div>
+<script src="/lib/three.min.js"></script><script src="/lib/GLTFLoader.js"></script>
+<script src="/game/core.js"></script><script src="/game/stage.js"></script><script src="/game/lobby.js"></script><script src="/game/screens.js"></script><script src="/game/settings.js"></script><script src="/game/main.js"></script>
+</body></html>

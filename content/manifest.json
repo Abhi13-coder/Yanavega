@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.1",
+ "version": "0.2.0",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -10,21 +10,255 @@
  },
  "files": [
   {
+   "path": "audio/lobby_theme.ogg",
+   "sha256": "7707b191b6c1f89664557d7ae43a61ae3aab6d7aa2d7153ee0a4a31892e4439d",
+   "size": 697155,
+   "pack": "core"
+  },
+  {
+   "path": "characters/female/body.glb",
+   "sha256": "6393b11979fb3f9303bdefaaec7f09fda9e25b25fff8a4766f856443d2c56ff5",
+   "size": 4549416,
+   "pack": "core"
+  },
+  {
+   "path": "characters/female/skin.webp",
+   "sha256": "977d0f4fd5f1aa24f96875a62bc6506192715706b939d68bbe7c72ca83d4cf48",
+   "size": 486800,
+   "pack": "core"
+  },
+  {
+   "path": "characters/male/body.glb",
+   "sha256": "a5bd382220fc242fc5e0c8f6c601f31f76da1597c3d1286595631f7791c1f580",
+   "size": 4889896,
+   "pack": "core"
+  },
+  {
+   "path": "characters/male/skin.webp",
+   "sha256": "dc0cf29606349264ce1bb19a5e8560a7fb84f59f1636d41932dd0e88270c5196",
+   "size": 845240,
+   "pack": "core"
+  },
+  {
+   "path": "data/cars.json",
+   "sha256": "013556337eec88fe47243be18e7b88dc3e42af159b2a4b26df9be018c054f5ed",
+   "size": 2092,
+   "pack": "core"
+  },
+  {
+   "path": "data/cast.json",
+   "sha256": "cabfbe3e574cdc5a1685ffece215792e018dc89af8d0d4088a0bf17f19c8a499",
+   "size": 2485,
+   "pack": "core"
+  },
+  {
+   "path": "data/cosmetics.json",
+   "sha256": "093825b3d7148adce38a81bbcde2e53205433d7e51d8bfd5757e560b5951a298",
+   "size": 1217,
+   "pack": "core"
+  },
+  {
+   "path": "data/items.json",
+   "sha256": "00369096b42bf533f86b150d7f5a420e9d7522e757dec3b834af52f5444be671",
+   "size": 5919,
+   "pack": "core"
+  },
+  {
+   "path": "data/news.json",
+   "sha256": "3f39ba5047067bd75bfb1eafdc0039b529c143a09f0b49f5a43e6f22d5074a2d",
+   "size": 319,
+   "pack": "core"
+  },
+  {
+   "path": "data/parts.json",
+   "sha256": "8ff437c571971384d7977ea0e693367d9843b8391eb578cf24d1d114cd338dcb",
+   "size": 795,
+   "pack": "core"
+  },
+  {
+   "path": "data/phone.json",
+   "sha256": "131bbc0a18cc97a9c3b95cd524e53bf8f481b5df5f098796b85df1774e3d6149",
+   "size": 1000,
+   "pack": "core"
+  },
+  {
+   "path": "data/settings.json",
+   "sha256": "35459648daeaee08f4802a0e55c7b4e0bafdbfe9b5a95ff1c601a7ae17d1b3cf",
+   "size": 23820,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/orbitron-latin-500-normal.woff2",
+   "sha256": "c13360768270c65d6c97701b100a88993885671dfdfd2a400aa58ea0195381ea",
+   "size": 6596,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/orbitron-latin-700-normal.woff2",
+   "sha256": "ee6acc5ad5349018f9ca71fab8118144160e110838931874150a1ac3f97db38d",
+   "size": 6528,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/orbitron-latin-900-normal.woff2",
+   "sha256": "ce87e6a1b1955bbc7b1d2d1c30fb5b53af5e34edb5b93a33e28068054892ef74",
+   "size": 6400,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/rajdhani-latin-500-normal.woff2",
+   "sha256": "23afdb9b5b89b878fab04d80cc30bf41bb4f3f7e8be88e5f16a7cc7671cdb2dc",
+   "size": 15084,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/rajdhani-latin-600-normal.woff2",
+   "sha256": "433a7007e4747a02a790167a6efa2625855f013970ba49b9b739a5d3db8b2601",
+   "size": 15732,
+   "pack": "core"
+  },
+  {
+   "path": "fonts/rajdhani-latin-700-normal.woff2",
+   "sha256": "5b7e4a6f97163c2636724d4de90304fc895653dcfe64c67a7a22f26331ca5c5f",
+   "size": 15688,
+   "pack": "core"
+  },
+  {
+   "path": "game/core.js",
+   "sha256": "cccff9cacfa5225aa1fc0f790b1b3059cb7d8578d4226cc3aea0e4ee97cf6f71",
+   "size": 13109,
+   "pack": "core"
+  },
+  {
    "path": "game/index.html",
-   "sha256": "20f768b11b0d937d44170f53397825581244bfe42e7d2ac8e900d88d3f3e2762",
-   "size": 1574,
+   "sha256": "61aa5a2ad53feab56fb58330839604d2a9ac230763841db5a2d77e03a2e712e0",
+   "size": 1697,
    "pack": "core"
   },
   {
-   "path": "layouts/lobby.json",
-   "sha256": "91c28d59d31d15dc0f8b1fe055ec13c57a28e4870add6ea949c1fceb4ffc5eb4",
-   "size": 78,
+   "path": "game/lobby.css",
+   "sha256": "8944fa130bb5aafa7675be626623e08ba3b988159ec7938fa91a58ae059552ef",
+   "size": 32350,
    "pack": "core"
   },
   {
-   "path": "yanavega-lobby.zip",
-   "sha256": "6a6cf6a3fdc2957c450063ca126e3045714c32705e9c0e12eb4b4975145bf682",
-   "size": 11358816,
+   "path": "game/lobby.js",
+   "sha256": "e83249b80e5b6f9f7793147fcf1e8812a85575b27707a973331ca1cee6835ee9",
+   "size": 13528,
+   "pack": "core"
+  },
+  {
+   "path": "game/main.js",
+   "sha256": "e1dee9c986c11d5c525241dbc38af7f662860b1142c599805d20e7836ba769dd",
+   "size": 1450,
+   "pack": "core"
+  },
+  {
+   "path": "game/screens.js",
+   "sha256": "f4e46faec74b0493f29f6026c8d1284a9b246880d8c9867bb29b0ce0d92e5133",
+   "size": 22455,
+   "pack": "core"
+  },
+  {
+   "path": "game/settings.js",
+   "sha256": "c70caa3df5d456ebae1086aea6d476950b1b2a87edf72f2791d2bdfc8167f01f",
+   "size": 9737,
+   "pack": "core"
+  },
+  {
+   "path": "game/stage.js",
+   "sha256": "92836030eaff277314979328b67cfc79a5a70c93f26189d053292f6f9caffd29",
+   "size": 8073,
+   "pack": "core"
+  },
+  {
+   "path": "lib/GLTFLoader.js",
+   "sha256": "5c15967ba830918a9caea6338712c994c354bccd4edc4569bde411c3ec06a3e6",
+   "size": 96550,
+   "pack": "core"
+  },
+  {
+   "path": "lib/three.min.js",
+   "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+   "size": 603445,
+   "pack": "core"
+  },
+  {
+   "path": "ui/bg_city.webp",
+   "sha256": "c377780f99d6ee4d43d5c5751efb32aa50f5f8f0c73460d6efd89ea38e43bbf3",
+   "size": 322264,
+   "pack": "core"
+  },
+  {
+   "path": "ui/bg_screens.webp",
+   "sha256": "8d2f5025461ad6a87393f97dad12052f9d78b80c2157345dac811143a2e1cd91",
+   "size": 18430,
+   "pack": "core"
+  },
+  {
+   "path": "ui/bokeh_2048.webp",
+   "sha256": "7986dec4103a0161eb05a9d08a2423f23f5e023566b479570f0d497879f281d3",
+   "size": 197294,
+   "pack": "core"
+  },
+  {
+   "path": "ui/car_hero.webp",
+   "sha256": "a92b7c298df94d21efa6f746030a0a827f39ce2d3dc3777458772531eeb2a4a7",
+   "size": 223712,
+   "pack": "core"
+  },
+  {
+   "path": "ui/carbon_2048.webp",
+   "sha256": "9f140b6fb0fd93bdd03fbd931a713fd8e604ec8ccce0542adb888ee74dcbc8b9",
+   "size": 610494,
+   "pack": "core"
+  },
+  {
+   "path": "ui/card_story.webp",
+   "sha256": "6fd7415d76448fb61d7b2246ac044ecf9deaba437d4ecc68dcbd9caab6daa3fe",
+   "size": 167586,
+   "pack": "core"
+  },
+  {
+   "path": "ui/grain_512.webp",
+   "sha256": "a1cee1b968f831d7d43d5bfe49a94f7c4b400ff25355692cf7d7154b212f2aa7",
+   "size": 202680,
+   "pack": "core"
+  },
+  {
+   "path": "ui/logo_full.svg",
+   "sha256": "d90593e0e1c29efa03038b335ecbce49b1d3639fa32ad66daf3419512a35ee5e",
+   "size": 35419,
+   "pack": "core"
+  },
+  {
+   "path": "ui/logo_mark.svg",
+   "sha256": "9d54d9e84c03b9dd7315b8ed9abd2678aae8feea1f932efac0eb81153c4db4ef",
+   "size": 15253,
+   "pack": "core"
+  },
+  {
+   "path": "ui/mode_open.webp",
+   "sha256": "21e78a9b068b739f8407146d3d6da05b0ebdbf7721ff14ed85657616e2a79ec4",
+   "size": 407640,
+   "pack": "core"
+  },
+  {
+   "path": "ui/mode_race.webp",
+   "sha256": "3c7061966140f555933e550d6b4b4a9cfa1e52d28c25f8fb086f3ef11f43b5eb",
+   "size": 209466,
+   "pack": "core"
+  },
+  {
+   "path": "ui/mode_story.webp",
+   "sha256": "0511f6d94c4a1cf8ffc78ab397897d88e297ad884afe03d21ec608dff73cff82",
+   "size": 472096,
+   "pack": "core"
+  },
+  {
+   "path": "ui/streaks_2048.webp",
+   "sha256": "b51c0079bfabf6d44f6266064768f0e4466d8ceb05d41346244381a92de85452",
+   "size": 152520,
    "pack": "core"
   }
  ]
