@@ -10,7 +10,7 @@ window.onYanaPack=function(name,pct,done){if(done)YV.toast(pct<0?'Download faile
   YV.cfg.init(YV.db.settings);
   YV.store.load(parseInt(String(YV.cfg.get('data.slot')).replace(/\D/g,''))||1);
   YV.applySettings();YV.buildLobby();
-  YV.stage.init(YV.$('#stage'));YV.stage.layout('none');YV.stage.setSkin(YV.store.data.skin);YV.stage.setBody(YV.store.data.body).catch(e=>console.warn('stage',e));
+  YV.stage.init(YV.$('#stage'));YV.stage.layout('none');
   YV.audio.startMusic();
   document.addEventListener('visibilitychange',()=>{const m=YV.audio.music;if(!m)return;if(document.hidden&&YV.cfg.get('aud.unfocus'))m.pause();else if(!document.hidden&&YV.audio.started)m.play().catch(()=>{})});
   addEventListener('pointerdown',()=>YV.audio.ensure(),{once:true});

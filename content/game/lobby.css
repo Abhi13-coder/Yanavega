@@ -257,3 +257,23 @@ body[data-screen] #topbar{opacity:0;pointer-events:none}
 .ico{width:2.4vh;height:2.4vh}
 .acc .ah .ico{width:2.8vh;height:2.8vh}
 .tex-brush{background-image:none}
+
+/* ================= Open Road HUD ================= */
+#drive{position:absolute;inset:0;z-index:30;display:none;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
+#dcanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+body.driving #ui,body.driving #stage,body.driving #bg,body.driving #bgshade,body.driving .fx{display:none}
+#drive .vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.8));pointer-events:none}
+#drive .spl{position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-conic-gradient(at 50% 50%,transparent 0 3deg,rgba(255,255,255,.13) 3.3deg 3.7deg);-webkit-mask:radial-gradient(circle at 50% 50%,transparent 36%,#000 88%);mask:radial-gradient(circle at 50% 50%,transparent 36%,#000 88%)}
+.dtl{position:absolute;left:var(--sl);top:var(--st);display:flex;gap:.8vh}.dtr{position:absolute;right:var(--sr);top:var(--st);display:flex;gap:1vh;z-index:3}
+.dchip{height:4.4vh;padding:0 1.5vh;display:flex;align-items:center;background:rgba(10,6,20,.55);backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px var(--line);font:700 .58rem Orbitron,sans-serif;letter-spacing:.12em}
+#mm{position:absolute;left:var(--sl);top:calc(var(--st) + 5.6vh);width:17vh;height:17vh;border-radius:50%;box-shadow:0 0 0 .3vh rgba(255,255,255,.28)}
+.dspeed{position:absolute;left:50%;bottom:calc(var(--sb) + 1vh);transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.4vh;pointer-events:none;text-shadow:0 .3vh 1.6vh #000}
+.dspeed b{font:900 3.6rem/1 Orbitron,sans-serif;letter-spacing:.04em}.dspeed small{font:700 .55rem Orbitron,sans-serif;letter-spacing:.3em;color:var(--p1)}
+.rpm{width:30vh;height:.9vh;background:rgba(255,255,255,.2);margin-top:.4vh}.rpm i{display:block;height:100%;width:0;background:var(--brand)}.dspeed span{font:900 1rem Orbitron,sans-serif;color:var(--p1)}
+.cl{position:absolute;bottom:calc(var(--sb) + 1vh);display:flex;gap:1.6vh;align-items:flex-end;transform:scale(var(--bs,1));transform-origin:bottom}.cl.left{left:var(--sl);transform-origin:bottom left}.cl.right{right:var(--sr);transform-origin:bottom right}
+.pbtn{display:grid;place-items:center;font:900 .7rem Orbitron,sans-serif;letter-spacing:.14em;background:rgba(10,6,20,.5);backdrop-filter:blur(6px);box-shadow:inset 0 0 0 .3vh rgba(255,255,255,.35);opacity:var(--bo,.7);touch-action:none;transition:filter .1s,transform .1s;clip-path:polygon(0 0,calc(100% - 1.4vh) 0,100% 1.4vh,100% 100%,1.4vh 100%,0 calc(100% - 1.4vh))}
+.pbtn.st{width:16vh;height:17vh;font-size:1.6rem}.pbtn.ped{width:15vh}.pbtn.gas{height:26vh;background:linear-gradient(0deg,rgba(255,79,200,.45),rgba(92,139,255,.25))}.pbtn.brk{height:17vh;background:rgba(255,92,92,.28)}.pbtn.on{filter:brightness(1.7);transform:scale(.96)}
+.wheel{position:relative;width:24vh;height:24vh;border-radius:50%;border:1.1vh solid rgba(255,255,255,.55);background:rgba(10,6,20,.35);opacity:var(--bo,.7);touch-action:none}.wheel i{position:absolute;left:50%;top:0;bottom:50%;width:1.2vh;margin-left:-.6vh;background:var(--p1)}.wheel b{position:absolute;left:0;right:0;top:50%;height:1.1vh;background:rgba(255,255,255,.55)}
+.tiltinfo{font:700 .6rem Orbitron,sans-serif;letter-spacing:.2em;padding:1.4vh 2vh;background:rgba(10,6,20,.5)}
+#dtoast{position:absolute;left:50%;top:calc(var(--st) + 1vh);transform:translateX(-50%);padding:1vh 2.4vh;background:rgba(10,6,20,.8);font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}#dtoast.on{opacity:1}
+#pausem{position:absolute;inset:0;display:grid;place-items:center;background:rgba(5,3,10,.6);backdrop-filter:blur(6px);z-index:5}.pm{width:min(70vh,80%);padding:2vh 2.4vh;--cut:1.8vh}

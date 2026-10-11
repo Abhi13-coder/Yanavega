@@ -62,12 +62,12 @@ YV.cfg={schema:[],ctl:{},defs:{},vals:{},
 YV.store={data:null,slot:1,_t:0,
  key(s){return 'yv.save.'+s},
  fresh(){const eq={};YV.db.items.forEach(i=>{if(i.default)eq[i.slot]=i.id});const inv={};YV.db.items.forEach(i=>{if(i.default||i.hidden)inv[i.id]=1});
-  Object.assign(inv,{cell:6,repair_kit:2,coffee:5,snack:4,tuner_parts:40,map_frag:1,photo_card:3,badge:1,garage_key:1,out_night:1,hair_long:1});
-  const cars={};YV.db.cars.forEach(c=>{cars[c.id]={tiers:{},paint:c.paint,wrap:'None',wheels:'Stock',light:'#ffffff',decal:'None',interior:'Standard',aero:'Stock',plate:'YANAVEGA',height:50,health:{},wear:0}});
-  return {v:1,name:'Slot',created:Date.now(),updated:Date.now(),profile:{name:'Driver',level:1,xp:35},wallet:{credits:12500,rep:0},body:'F',skin:0.96,equipped:eq,inv,
-   garage:{owned:['aster_taxi'],active:'aster_taxi',cars},unlocked:{paint:[],wrap:[],decal:[]},story:{act:'ACT 0',chapter:'First Fare',progress:6},phone:{read:{}},playtime:0}},
+  Object.assign(inv,{cell:6,repair_kit:2,coffee:5,snack:4,tuner_parts:40,map_frag:1,photo_card:3,badge:1,garage_key:1});
+  const cars={};YV.db.cars.forEach(c=>{cars[c.id]={tiers:{},paint:c.paint,paints:[c.paint],finish:'Gloss',plate:'YANAVEGA',health:{},wear:0,km:0}});
+  return {v:2,name:'Slot',created:Date.now(),updated:Date.now(),profile:{name:'Driver',level:1,xp:0},wallet:{credits:12500,rep:0},body:'F',skin:0.96,equipped:eq,inv,
+   garage:{owned:['starter'],active:'starter',cars},unlocked:{paint:[],wrap:[],decal:[]},story:{act:'ACT 0',chapter:'First Fare',progress:0},phone:{read:{}},playtime:0}},
  load(s){this.slot=s;try{const r=localStorage.getItem(this.key(s));this.data=r?JSON.parse(r):this.fresh()}catch(e){this.data=this.fresh()}
-  const f=this.fresh();for(const k in f)if(!(k in this.data))this.data[k]=f[k];YV.db.cars.forEach(c=>{if(!this.data.garage.cars[c.id])this.data.garage.cars[c.id]=f.garage.cars[c.id]});return this.data},
+  const f=this.fresh();for(const k in f)if(!(k in this.data))this.data[k]=f[k];YV.db.cars.forEach(c=>{if(!this.data.garage.cars[c.id])this.data.garage.cars[c.id]=f.garage.cars[c.id]});const d=this.data;if((d.v||1)<2){d.v=2;d.profile.xp=0;d.story.progress=0;d.garage.owned=['starter'];d.garage.active='starter'}if(!d.garage.cars.starter)d.garage.cars.starter=f.garage.cars.starter;const sc=d.garage.cars.starter;if(!sc.paints)sc.paints=[sc.paint];if(!d.garage.owned.includes('starter'))d.garage.owned=['starter'];d.garage.active='starter';return d},
  save(){if(!this.data)return;this.data.updated=Date.now();try{localStorage.setItem(this.key(this.slot),JSON.stringify(this.data))}catch(e){}},
  touch(ev){clearTimeout(this._t);this._t=setTimeout(()=>this.save(),400);if(ev)YV.emit(ev)},
  summary(s){try{const r=JSON.parse(localStorage.getItem(this.key(s))||'null');return r}catch(e){return null}},

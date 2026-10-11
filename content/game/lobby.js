@@ -5,7 +5,7 @@ const MODES=[
  {id:'story',title:'Story Mode',kicker:'ACT 0 · FIRST FARE',tag:'CAMPAIGN',icon:'book',art:'ui/mode_story.webp',pos:'27% 40%',line:'100+ missions. Every choice becomes history.',cta:'Continue'},
  {id:'open',title:'Open Road',kicker:'SOLARA CITY · SUNSET',tag:'FREE ROAM',icon:'road',art:'ui/mode_open.webp',pos:'52% 50%',line:'No objectives. Just you, the car and the city.',cta:'Cruise'},
  {id:'race',title:'Race Mode',kicker:'9 EVENT TYPES',tag:'COMPETE',icon:'flag',art:'ui/mode_race.webp',pos:'38% 58%',line:'Circuit, drift, touge, drag, rally and more.',cta:'Race'}];
-YV.MODES=MODES;
+YV.MODES=MODES;MODES[0].soon=MODES[2].soon=true;MODES[0].tag=MODES[2].tag='COMING SOON';MODES[0].cta=MODES[2].cta='Coming soon';MODES[1].tag='PLAYABLE';MODES[1].cta='Drive';MODES[1].kicker='SOLARA CITY · NOW PLAYABLE';
 const NAV=[['chars','chars','Characters'],['wardrobe','wardrobe','Wardrobe'],['inventory','inv','Inventory'],['garage','garage','Garage'],['shop','shop','Shop'],['maint','wrench','Maintenance'],['settings','gear','Settings']];
 const TIPS=['Reputation opens doors that money cannot.','A friend who stops answering is a story, not a coincidence.','Wet roads reward patience. Dry roads reward nerve.','Every car remembers how it was driven.','Not every road on the map is on the map.','Good tires are the cheapest horsepower you can buy.'];
 YV.modeCfg=Object.assign({open:{region:'Solara City',time:'Sunset',weather:'Clear',traffic:60,peds:60,photo:false},race:{type:'Street Race',diff:'Standard',laps:3,opp:5,time:'Night',weather:'Clear'}},(()=>{try{return JSON.parse(localStorage.getItem('yv.modecfg')||'{}')}catch(e){return {}}})());
@@ -17,8 +17,8 @@ const chips=()=>[h('div',{class:'chip'},YV.icon('coin'),h('span',{class:'v-cr'})
 /* ---------------- home: three full-bleed, slanted mode panels (no frames, no boxes) */
 function strip(m,i){
  const d=YV.store.data,sel=YV.home.sel===m.id;
- const meta=m.id==='story'?h('div',{class:'meta'},h('span',null,'CH. '+d.story.chapter),h('div',{class:'prog'},h('i',{style:'width:'+d.story.progress+'%'})),h('span',null,d.story.progress+'%')):
-  m.id==='open'?h('div',{class:'meta'},h('span',null,'GARAGE · '+YV.db.cars.find(c=>c.id===d.garage.active).name.toUpperCase())):h('div',{class:'meta'},h('span',null,'BEST · NO RECORDS YET'));
+ const meta=m.id==='story'?h('div',{class:'meta'},h('span',null,'NEW GAME · NOT STARTED')):
+  m.id==='open'?h('div',{class:'meta'},h('span',null,'GARAGE · '+YV.db.cars.find(c=>c.id===d.garage.active).name.toUpperCase())):h('div',{class:'meta'},h('span',null,'LAUNCHES AFTER OPEN ROAD'));
  const s=h('button',{class:'strip '+m.id+(sel?' sel':''),style:'animation-delay:'+(.05+i*.1)+'s',onpointerenter:()=>YV.audio.play('hover'),onclick:()=>{if(YV.home.sel===m.id)openMode(m.id);else{YV.audio.play('tap');YV.home.select(m.id)}}},
   h('div',{class:'art',style:`background-image:url(${YV.assets.url(m.art)});background-position:${m.pos}`}),h('div',{class:'scrim'}),
   h('div',{class:'stop'},h('span',{class:'tg'},m.tag),YV.icon(m.icon)),
@@ -49,7 +49,7 @@ YV.nav={cur:null,
   root.append(h('div',{class:'sc-head'},h('button',{class:'ibtn',onclick:()=>{YV.audio.play('back');YV.nav.close()},'aria-label':'Back'},YV.icon('back')),h('h1',null,sc.title),h('span',{class:'sub'},sc.sub||''),h('div',{class:'grow'}),chips()),body);
   $$('.screen').forEach(s=>s.remove());$('#ui').append(root);sc.build(body);YV.refreshChips();
   this.cur=id;document.body.dataset.screen=id;$$('.navb').forEach(b=>b.classList.toggle('on',b.dataset.s===id));YV.audio.play('open');
-  YV.stage.layout(sc.stage||'none');if(sc.stage)YV.stage.setBody(YV.store.data.body)},
+  YV.stage.layout(sc.stage||'none');if(sc.onOpen)sc.onOpen()},
  close(){$$('.screen').forEach(s=>s.remove());this.cur=null;delete document.body.dataset.screen;$$('.navb').forEach(b=>b.classList.remove('on'));YV.stage.layout('none')}};
 
 /* ---------------- mode sheets */
@@ -57,7 +57,7 @@ function closeSheet(){const s=$('.sheet');if(s)s.remove();document.body.classLis
 function carSelect(val,on){const d=YV.store.data;const s=h('select',{onchange:e=>on(e.target.value)},d.garage.owned.map(id=>{const c=YV.db.cars.find(x=>x.id===id);return h('option',{value:id,selected:id===val},c.name)}));return s}
 function field(label,node){return h('div',{class:'field'},h('label',null,label),node)}
 function openMode(id){
- const m=MODES.find(x=>x.id===id),d=YV.store.data;closeSheet();YV.audio.play('open');
+ const m=MODES.find(x=>x.id===id),d=YV.store.data;if(m.soon){YV.audio.play('error');YV.toast(m.title+' is coming soon. Open Road is playable now.');return}closeSheet();YV.audio.play('open');
  const body=h('div',{class:'scroll pad',style:'flex:1'});let startFn;
  if(id==='story'){
   d.garage.active&&YV.store.save();let slot=YV.store.slot;
@@ -87,8 +87,10 @@ YV.openMode=openMode;
 
 /* ---------------- launch overlay (hand-off point to the future gameplay build) */
 function launch(m,cfg){closeSheet();const L=$('#launch');L.innerHTML='';const bar=h('i',{style:'width:0%'});
- L.style.backgroundImage=`url(${YV.assets.url(m.art)})`;L.append(h('div',{class:'lc'},h('small',{class:'disp',style:'color:var(--p1);font-size:.55rem'},m.kicker),h('h3',{style:'font-size:1.6rem;margin:.6vh 0'},m.title),h('div',{class:'tip'},TIPS[Math.floor(Math.random()*TIPS.length)]),h('div',{class:'bar'},bar)));
- L.classList.add('open');let p=0;const iv=setInterval(()=>{p+=3+Math.random()*7;bar.style.width=Math.min(100,p)+'%';if(p>=100){clearInterval(iv);setTimeout(()=>{L.classList.remove('open');YV.emit('startMode',{mode:m.id,cfg});YV.toast('Gameplay is the next build. The lobby is ready and saves everything you set.','ok')},350)}},90)}
+ L.style.backgroundImage=`url(${YV.assets.url(m.art)})`;L.append(h('div',{class:'lc'},h('small',{class:'disp',style:'color:var(--p1);font-size:.55rem'},m.kicker),h('h3',{style:'font-size:1.6rem;margin:.6vh 0'},m.title),h('div',{class:'tip'},TIPS[Math.floor(Math.random()*TIPS.length)]),h('div',{class:'bar'},bar)));L.classList.add('open');
+ if(m.id==='open'){YV.audio.ensure();YV.openroad.load(p=>{bar.style.width=Math.round(p*92)+'%'}).then(()=>{bar.style.width='100%';YV.car.setPaint(YV.store.data.garage.cars.starter.paint);try{YV.audio.music&&YV.audio.music.pause()}catch(e){}
+   setTimeout(()=>{try{YV.openroad.begin(cfg)}catch(e){console.error(e);YV.toast('Open Road could not start: '+(e&&e.message||e),'bad')}L.classList.remove('open')},350)}).catch(e=>{console.error(e);L.classList.remove('open');YV.toast('Could not load Open Road: '+(e&&e.message||e),'bad')});return}
+ let p=0;const iv=setInterval(()=>{p+=3+Math.random()*7;bar.style.width=Math.min(100,p)+'%';if(p>=100){clearInterval(iv);setTimeout(()=>{L.classList.remove('open');YV.emit('startMode',{mode:m.id,cfg})},350)}},90)}
 
 /* ---------------- phone + news */
 YV.phone={open:false,
