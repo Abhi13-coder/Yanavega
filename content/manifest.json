@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.5",
+ "version": "1.0.6",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -91,12 +91,6 @@
    "path": "characters/male/skin.ktx2",
    "sha256": "40ff122ea20bb26ad765bbe2f3345e864eba17e860775c63095d98b86ced7cf2",
    "size": 1520690,
-   "pack": "core"
-  },
-  {
-   "path": "content.zip",
-   "sha256": "38c504530285119e1d8f5649036b27773d377602f663b3b96026de904412da69",
-   "size": 638307,
    "pack": "core"
   },
   {
