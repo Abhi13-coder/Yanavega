@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.12",
+ "version": "1.0.13",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -9,6 +9,12 @@
   }
  },
  "files": [
+  {
+   "path": "Yanavega-ktx2-real-fix.zip",
+   "sha256": "1ac7e05801a52636f0cbb5d3b51c0fdd28e73f38579e8502d5c8068b0e7c3fda",
+   "size": 287660,
+   "pack": "core"
+  },
   {
    "path": "audio/eng_high.ogg",
    "sha256": "6f00dc8d1cd015c1b091fc537e7dd50e91b602f4bdcefcbd6502025330c0c829",
