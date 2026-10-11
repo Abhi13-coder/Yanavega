@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.13",
+ "version": "1.0.14",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -9,12 +9,6 @@
   }
  },
  "files": [
-  {
-   "path": "Yanavega-ktx2-real-fix.zip",
-   "sha256": "1ac7e05801a52636f0cbb5d3b51c0fdd28e73f38579e8502d5c8068b0e7c3fda",
-   "size": 287660,
-   "pack": "core"
-  },
   {
    "path": "audio/eng_high.ogg",
    "sha256": "6f00dc8d1cd015c1b091fc537e7dd50e91b602f4bdcefcbd6502025330c0c829",
@@ -197,8 +191,8 @@
   },
   {
    "path": "game/car.js",
-   "sha256": "ebcbf207e704d93a4b982cfa439659d5443666cc7a31fea05ca53c78c973ae66",
-   "size": 4139,
+   "sha256": "55feb90f3fd068c0ca7428073104832ca2220f9f00c294785cce574aec2b69ea",
+   "size": 3762,
    "pack": "core"
   },
   {
@@ -215,8 +209,8 @@
   },
   {
    "path": "game/index.html",
-   "sha256": "b1ce0e343e6d230336653d12cbfdf60860dd15dd31738655bc61cf4fcafc14b6",
-   "size": 1929,
+   "sha256": "1fbf58d5723ce452f322716842d94c80309d64b4bd96f596450efd2dc149934b",
+   "size": 1879,
    "pack": "core"
   },
   {
@@ -239,8 +233,8 @@
   },
   {
    "path": "game/openroad.js",
-   "sha256": "1d997a01da3c29f3dc256b1a8a1917e053498754b3ae54f1f60c67973a9c307d",
-   "size": 45535,
+   "sha256": "94fad136ca94230d17f2862e3b7b5884bac5af2802f73ea6fa917fcfb605363e",
+   "size": 44826,
    "pack": "core"
   },
   {
@@ -257,8 +251,8 @@
   },
   {
    "path": "game/stage.js",
-   "sha256": "4285e60394d1d63e472d68dae1471e33e075b616dab568b18bc3bb040168bb41",
-   "size": 4048,
+   "sha256": "7e7d6761e0f263fe0452f93fc80d03fe41635d60f91535c05b96257981117166",
+   "size": 3880,
    "pack": "core"
   },
   {
@@ -281,20 +275,20 @@
   },
   {
    "path": "lib/basis/basis_transcoder.js",
-   "sha256": "b352d4fb1b2b5f66877a37c418d061693cee99245bdaf38e6b6ba17c9f34a964",
-   "size": 62997,
+   "sha256": "48a0ef319a28bf0224ee88ded34f74eaf97c175bba9eb18b47fb9720510ad6c4",
+   "size": 62337,
    "pack": "core"
   },
   {
    "path": "lib/basis/basis_transcoder.wasm",
-   "sha256": "e7dcac729b9e38208a1382f17da3d64a3108a8390e95c912d24bd95b7bc2fb5b",
-   "size": 440267,
+   "sha256": "79ae97d781e10a566659c689b7bb1de91726453f55f9f5e3bcc07a4e3904070f",
+   "size": 499935,
    "pack": "core"
   },
   {
    "path": "lib/ktx2-bridge.js",
-   "sha256": "19208d3b1b55f9eb4c7e10ce80e5bf8c016a84ec0e01a8326fb32c61f97c591f",
-   "size": 3773,
+   "sha256": "5b0b9eb91217740d4b091cf832597da1327cc2d6ea513955d8e8e3767199e0dc",
+   "size": 11705,
    "pack": "core"
   },
   {
