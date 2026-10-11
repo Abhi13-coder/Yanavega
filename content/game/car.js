@@ -2,20 +2,9 @@
 (function(){'use strict';
 const YV=window.YV,C=YV.car={loaded:false,uPaint:{value:new THREE.Color(1,.6,.1)},uFinR:{value:.2},uFinM:{value:.25},FIN:{Gloss:[.2,.25],Metallic:[.3,.85],Matte:[.78,.1]}};
 const tex=async(p,srgb)=>{
-  if(YV.ktx2&&YV.ktx2.loadTexture){
-    try{return await YV.ktx2.loadTexture('/'+p,{srgb:!!srgb,aniso:8});}catch(e){console.warn('car ktx2',p,e)}
-  }
-  const tryPaths=[p];
-  if(/\.ktx2$/i.test(p)) tryPaths.push(p.replace(/\.ktx2$/i,'.webp'));
-  let lastErr;
-  for(const path of tryPaths){
-    try{
-      const img=await YV.assets.image(path);
-      const t=new THREE.Texture(img);t.flipY=false;
-      if(srgb)t.encoding=THREE.sRGBEncoding;t.anisotropy=8;t.needsUpdate=true;return t;
-    }catch(e){lastErr=e}
-  }
-  throw lastErr||new Error('car texture missing '+p);
+  const path=p.replace(/\.webp$/i,'.ktx2');
+  if(!YV.ktx2||!YV.ktx2.loadTexture) throw new Error('KTX2 loader missing');
+  return await YV.ktx2.loadTexture('/'+path,{srgb:!!srgb,aniso:8});
 };
 
 C.load=async function(){

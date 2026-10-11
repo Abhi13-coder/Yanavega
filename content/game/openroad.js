@@ -26,35 +26,14 @@ const WX={Clear:{f:1,g:0,d:1,rain:0},Cloudy:{f:1.5,g:.45,d:.8,rain:0},Rain:{f:2.
 /* ---------------- loading */
 const texL=async(p,o)=>{o=o||{};
   const aniso=+String(YV.cfg.get('gfx.aniso')).replace('x','')||8;
-  const opts={srgb:!!o.srgb,rep:!!o.rep,mir:!!o.mir,aniso};
-  // Real loader path: YV.ktx2 (Basis transcoder) for .ktx2/.basis, else Image
-  if(YV.ktx2&&YV.ktx2.loadTexture){
-    try{
-      return await YV.ktx2.loadTexture('/'+p,opts);
-    }catch(e){
-      console.warn('ktx2 load failed, trying image',p,e);
-    }
-  }
-  // webp/jpg/png path (and sibling webp for ktx2 assets if present)
-  const tryPaths=[p];
-  if(/\.ktx2$/i.test(p)) tryPaths.push(p.replace(/\.ktx2$/i,'.webp'), p.replace(/\.ktx2$/i,'.png'));
-  let lastErr;
-  for(const path of tryPaths){
-    try{
-      const img=await YV.assets.image(path);
-      const t=new THREE.Texture(img);t.flipY=false;
-      if(o.srgb)t.encoding=THREE.sRGBEncoding;t.anisotropy=aniso;
-      if(o.rep){t.wrapS=t.wrapT=THREE.RepeatWrapping}
-      if(o.mir){t.wrapS=t.wrapT=THREE.MirroredRepeatWrapping}
-      t.needsUpdate=true;return t;
-    }catch(e){lastErr=e}
-  }
-  throw lastErr||new Error('texture missing '+p);
+  const path=p.replace(/\.webp$/i,'.ktx2').replace(/\.png$/i,'.ktx2');
+  if(!YV.ktx2||!YV.ktx2.loadTexture) throw new Error('KTX2 loader missing for '+path);
+  return await YV.ktx2.loadTexture('/'+path,{srgb:!!o.srgb,rep:!!o.rep,mir:!!o.mir,aniso});
 };
 OR.load=async function(prog){
  if(this.ready)return;const steps=[['Car',()=>YV.car.load()],['Road',async()=>{T.roadC=await texL('world/road_color.ktx2',{srgb:1,rep:1});T.roadR=await texL('world/road_rough.ktx2',{rep:1});T.roadA=await texL('world/road_ao.ktx2',{rep:1})}],
-  ['Land',async()=>{T.grass=await texL('world/grass.ktx2',{srgb:1,rep:1});T.ground=await texL('world/new/ground_detail.webp',{srgb:1,rep:1});T.water=await texL('world/new/water_photo.webp',{srgb:1,mir:1});T.waterN=await texL('world/new/water_normal.webp',{rep:1});T.sky=await texL('world/sky.ktx2',{srgb:1,mir:1})}],
-  ['Trees',async()=>{T.leaf=await texL('world/leaf.ktx2',{srgb:1});T.bark=await texL('world/bark.ktx2',{srgb:1,mir:1});T.tallg=await texL('world/new/tallgrass.webp',{srgb:1});T.plants=await texL('world/new/plants_cluster.webp',{srgb:1});T.flowers=await texL('world/new/flowers_sheet.webp',{srgb:1});T.treesheet=await texL('world/new/trees_sheet.webp',{srgb:1})}],['Engine',()=>loadAudio()]];
+  ['Land',async()=>{T.grass=await texL('world/grass.ktx2',{srgb:1,rep:1});T.ground=await texL('world/new/ground_detail.ktx2',{srgb:1,rep:1});T.water=await texL('world/new/water_photo.ktx2',{srgb:1,mir:1});T.waterN=await texL('world/new/water_normal.ktx2',{rep:1});T.sky=await texL('world/sky.ktx2',{srgb:1,mir:1})}],
+  ['Trees',async()=>{T.leaf=await texL('world/leaf.ktx2',{srgb:1});T.bark=await texL('world/bark.ktx2',{srgb:1,mir:1});T.tallg=await texL('world/new/tallgrass.ktx2',{srgb:1});T.plants=await texL('world/new/plants_cluster.ktx2',{srgb:1});T.flowers=await texL('world/new/flowers_sheet.ktx2',{srgb:1});T.treesheet=await texL('world/new/trees_sheet.ktx2',{srgb:1})}],['Engine',()=>loadAudio()]];
  const T=this.T={};for(let i=0;i<steps.length;i++){await steps[i][1]();prog&&prog((i+1)/steps.length)}this.ready=true};
 let ABUF=null;
 async function loadAudio(){YV.audio.ensure();const ctx=YV.audio.ctx;if(!ctx)return;const dec=async p=>{const ab=await YV.assets.buffer(p);return new Promise((ok,no)=>{const pr=ctx.decodeAudioData(ab.slice(0),ok,no);if(pr&&pr.catch)pr.catch(()=>{})})};
