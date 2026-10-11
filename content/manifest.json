@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.6",
+ "version": "1.0.7",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -9,6 +9,12 @@
   }
  },
  "files": [
+  {
+   "path": "Yanavega-changed-only.zip",
+   "sha256": "90c872d3f0c871a45c373bac582297572ab3fc0ea39e51a9f79fd99b27461d86",
+   "size": 1408865,
+   "pack": "core"
+  },
   {
    "path": "audio/eng_high.ogg",
    "sha256": "6f00dc8d1cd015c1b091fc537e7dd50e91b602f4bdcefcbd6502025330c0c829",
