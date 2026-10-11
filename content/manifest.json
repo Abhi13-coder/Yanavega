@@ -58,15 +58,15 @@
    "pack": "core"
   },
   {
-   "path": "cars/starter/color.webp",
-   "sha256": "7aae0de2994c63205c9c1266d1743e666e18e0866013ec0b4af536043bd07dee",
-   "size": 326560,
+   "path": "cars/starter/color.ktx2",
+   "sha256": "71d15dad881a221b7347002b76393d30c5a13c4d8a217357c0001f32d8e5e415",
+   "size": 2195162,
    "pack": "core"
   },
   {
-   "path": "cars/starter/mr.webp",
-   "sha256": "c94639ca5a60503b1f27064bef8f4615528b092086163afc9000c585e592d06c",
-   "size": 362080,
+   "path": "cars/starter/mr.ktx2",
+   "sha256": "5da245787f4012b1da403421eb730317b7290efde020138d1319b424b0f3f5a7",
+   "size": 3239430,
    "pack": "core"
   },
   {
@@ -76,9 +76,9 @@
    "pack": "core"
   },
   {
-   "path": "characters/female/skin.webp",
-   "sha256": "977d0f4fd5f1aa24f96875a62bc6506192715706b939d68bbe7c72ca83d4cf48",
-   "size": 486800,
+   "path": "characters/female/skin.ktx2",
+   "sha256": "4ad21dcc1374939a7d31421c1d325aa63b9579d600f887e364b5c9ec9cd2e256",
+   "size": 909872,
    "pack": "core"
   },
   {
@@ -88,9 +88,9 @@
    "pack": "core"
   },
   {
-   "path": "characters/male/skin.webp",
-   "sha256": "dc0cf29606349264ce1bb19a5e8560a7fb84f59f1636d41932dd0e88270c5196",
-   "size": 845240,
+   "path": "characters/male/skin.ktx2",
+   "sha256": "40ff122ea20bb26ad765bbe2f3345e864eba17e860775c63095d98b86ced7cf2",
+   "size": 1520690,
    "pack": "core"
   },
   {
@@ -358,51 +358,51 @@
    "pack": "core"
   },
   {
-   "path": "world/bark.webp",
-   "sha256": "41c2238303fe9b1c3d4c2b1696375291b66e4120a14d46c00bff67cc617f2c28",
-   "size": 81958,
+   "path": "world/bark.ktx2",
+   "sha256": "16426fb403620a4c7ff99e9ab003a82f72c47d269e691c398b326d37b3ca0ae1",
+   "size": 329641,
    "pack": "core"
   },
   {
-   "path": "world/grass.webp",
-   "sha256": "6e4c500231810df99be4fc3e94b1e3851c7b611b38777c769aaa90a5e987a0c9",
-   "size": 179548,
+   "path": "world/grass.ktx2",
+   "sha256": "f1ec25e46a5c402d2ba9ad13a46fcb6e8f38b8b90b80c0a414a3af0e5cfff95c",
+   "size": 1080640,
    "pack": "core"
   },
   {
-   "path": "world/leaf.webp",
-   "sha256": "0935aa6e438aedfaa9f09a66cb7bd6c3180fc8f9e25dc324d7436efc25b06430",
-   "size": 155182,
+   "path": "world/leaf.ktx2",
+   "sha256": "7b321544a2f418b23725720ec17e877281105441db27d6736fd3b3804f3c601c",
+   "size": 674585,
    "pack": "core"
   },
   {
-   "path": "world/road_ao.webp",
-   "sha256": "d713b432509a0d5064537cad4a4e7e5d0c481fcc0ca23580709784908e0ad8c1",
-   "size": 172412,
+   "path": "world/road_ao.ktx2",
+   "sha256": "4c876a25114aa9bb0ad86736a93a595f78a78b67719e3610844a4255acc50cad",
+   "size": 473675,
    "pack": "core"
   },
   {
-   "path": "world/road_color.webp",
-   "sha256": "fa2a21e75372e4140c93a8d669d0703b2f61474d4481227d356b04c830abcca5",
-   "size": 145114,
+   "path": "world/road_color.ktx2",
+   "sha256": "b462ad73e56b741fcccd4b5c6c2929eb572987000a9957d0a18f8689340923ca",
+   "size": 509856,
    "pack": "core"
   },
   {
-   "path": "world/road_rough.webp",
-   "sha256": "c00a8deea8a62acb9dc188364a729df3275d6f6d9bea3cded1790909bc239f4f",
-   "size": 67048,
+   "path": "world/road_rough.ktx2",
+   "sha256": "979d1f1f49c5a92e16b60865730a06fbd0e52fac55a1b3eb56674ed0311e776a",
+   "size": 464466,
    "pack": "core"
   },
   {
-   "path": "world/sky.webp",
-   "sha256": "826e6dc759d8966e05260870b5bf2b810ebf29b1accffe1dd84db9c3846dd892",
-   "size": 156124,
+   "path": "world/sky.ktx2",
+   "sha256": "ac9f847a18f7bad2b5554217387b23bc977e7989559e2ac48a047ffd39730ce1",
+   "size": 975843,
    "pack": "core"
   },
   {
-   "path": "world/water.webp",
-   "sha256": "60760ba7d93695e37efa656a93e93fd1f0faaacea2de1d2f6168d7820133551e",
-   "size": 120588,
+   "path": "world/water.ktx2",
+   "sha256": "4e39dc4308199f3be2b499175184d398ac73c7074b3cca8f70840ff3a1760c4f",
+   "size": 679294,
    "pack": "core"
   }
  ]
