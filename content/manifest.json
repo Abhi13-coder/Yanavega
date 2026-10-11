@@ -394,45 +394,45 @@
    "pack": "core"
   },
   {
-   "path": "world/new/flowers_sheet.webp",
-   "sha256": "ed0979630ccd88673497f407c9238669c873c404aff5ef36bdd89265ceddf27a",
-   "size": 91890,
+   "path": "world/new/flowers_sheet.ktx2",
+   "sha256": "dd55a78dbe3314cf60e239e2681cd79b1e55a2643088517f0d9710b6ebe4468e",
+   "size": 1001581,
    "pack": "core"
   },
   {
-   "path": "world/new/ground_detail.webp",
-   "sha256": "c4df78bba44dbb492839e31c2c04eba5ad66637a8c3598ccad1e38601ae802a3",
-   "size": 279094,
+   "path": "world/new/ground_detail.ktx2",
+   "sha256": "f00c2d7f096ff2af84fcb953a3956fe9c2cb7fdbbd1987a36ee5a0a65a92ff53",
+   "size": 2550457,
    "pack": "core"
   },
   {
-   "path": "world/new/plants_cluster.webp",
-   "sha256": "7bb3005195a56e29a6914409322c8efca5fcf2e8a1265b628210fa7186ce0b6a",
-   "size": 169946,
+   "path": "world/new/plants_cluster.ktx2",
+   "sha256": "15d8a4f62c6e2d6da56a31789d231349939c9f4c6d790ed165133e9c9b1b0a53",
+   "size": 1370698,
    "pack": "core"
   },
   {
-   "path": "world/new/tallgrass.webp",
-   "sha256": "2454b5a02e2bc5bcd021cd2ab152c0cb50d53868e177562c576261327aec5a10",
-   "size": 60082,
+   "path": "world/new/tallgrass.ktx2",
+   "sha256": "386fa22fa64034058f64a5a31e94de023c2643b815ef714a855800459e9de6c0",
+   "size": 923643,
    "pack": "core"
   },
   {
-   "path": "world/new/trees_sheet.webp",
-   "sha256": "151b181e8bf49dc24e00a2ce0ac87efb36a1131bad4b46bffd1617f089873916",
-   "size": 100148,
+   "path": "world/new/trees_sheet.ktx2",
+   "sha256": "8772aaacccb62606c1be8af2f33b18daa56f3917ec5564c320ff7619a86be49e",
+   "size": 1882705,
    "pack": "core"
   },
   {
-   "path": "world/new/water_normal.webp",
-   "sha256": "e43b265e8b23d0480dd7862cb393c0c083dc2cbe439ff4f60520ff5ac64995a0",
-   "size": 252674,
+   "path": "world/new/water_normal.ktx2",
+   "sha256": "d4edba0b889f20300fd845596421148d62fc301741874b4e5bec167f87983928",
+   "size": 2717407,
    "pack": "core"
   },
   {
-   "path": "world/new/water_photo.webp",
-   "sha256": "69d05d02cc73695d1165ab371ad9e2cf6908c7e441295eace4f0a0fb57b40c38",
-   "size": 190416,
+   "path": "world/new/water_photo.ktx2",
+   "sha256": "154cfc503fe017642696a008c007e2cd273bc46ff0d530b2fa47e54bea6876a5",
+   "size": 2484119,
    "pack": "core"
   },
   {
