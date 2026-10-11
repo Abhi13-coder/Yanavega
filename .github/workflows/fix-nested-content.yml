@@ -1,0 +1,24 @@
+name: Fix nested content
+# One-off: moves content/content/* up into content/, rebuilds the manifest.
+# Add as .github/workflows/fix-nested-content.yml, then Actions -> Fix nested content -> Run workflow.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Flatten content/content into content
+        run: |
+          test -d content/content || { echo "Nothing to fix"; exit 0; }
+          cp -a content/content/. content/
+          rm -rf content/content
+      - run: python3 tools/make_manifest.py
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A content
+          git diff --cached --quiet || (git commit -m "Fix: flatten content/content into content" && git push)
