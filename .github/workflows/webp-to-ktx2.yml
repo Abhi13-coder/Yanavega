@@ -1,0 +1,121 @@
+name: Convert scene WebP to KTX2
+
+# Converts WebP textures used in the 3D scene (world/, cars/, characters/) to
+# Basis-Universal KTX2 and deletes the WebP originals. UI images under
+# content/ui/ (lobby + splash backgrounds, mode cards, car hero, fx layers)
+# are never touched, since those are drawn as flat 2D images, not GPU scene
+# textures, and don't benefit from KTX2.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "List what would convert, but don't write/commit"
+        required: false
+        default: "false"
+        type: boolean
+  push:
+    branches: [main]
+    paths:
+      - 'content/world/**.webp'
+      - 'content/cars/**.webp'
+      - 'content/characters/**.webp'
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toktx (KTX-Software)
+        run: |
+          set -euo pipefail
+          api=$(curl -fsSL https://api.github.com/repos/KhronosGroup/KTX-Software/releases/latest)
+          url=$(echo "$api" | grep -o '"browser_download_url": *"[^"]*Linux-x86_64\.deb"' | sed -E 's/.*"(https[^"]+)"/\1/' | head -n1)
+          if [ -z "$url" ]; then echo "Could not find KTX-Software Linux .deb asset"; exit 1; fi
+          curl -fsSL -o ktx-software.deb "$url"
+          sudo apt-get update -y
+          sudo apt-get install -y ./ktx-software.deb
+          toktx --version
+
+      - name: Install image deps
+        run: pip install --quiet --break-system-packages Pillow
+
+      - name: Convert WebP -> KTX2
+        id: convert
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, subprocess, sys
+          from pathlib import Path
+
+          root = Path("content")
+          dirs = ["world", "cars", "characters"]
+          dry = os.environ.get("DRY_RUN", "false").lower() == "true"
+
+          # Data/non-color maps: linear transfer, no sRGB curve.
+          LINEAR_HINTS = ("_ao", "_rough", "mr.webp", "mr_", "normal", "_nrm", "rough")
+
+          converted = []
+          for d in dirs:
+              base = root / d
+              if not base.is_dir():
+                  continue
+              for webp in sorted(base.rglob("*.webp")):
+                  rel = webp.relative_to(root)
+                  name = webp.name.lower()
+                  linear = any(h in name for h in LINEAR_HINTS)
+                  png = webp.with_suffix(".png")
+                  ktx2 = webp.with_suffix(".ktx2")
+
+                  from PIL import Image
+                  img = Image.open(webp).convert("RGBA")
+                  img.save(png)
+
+                  cmd = [
+                      "toktx", "--genmipmap", "--t2",
+                      "--encode", "uastc", "--uastc_quality", "3",
+                      "--zcmp", "19",
+                      "--assign_oetf", "linear" if linear else "srgb",
+                  ]
+                  if img.mode == "RGBA" and img.getextrema()[3][0] < 255:
+                      pass  # keep alpha, toktx reads it from the PNG automatically
+                  cmd += [str(ktx2), str(png)]
+
+                  print("::group::" + str(rel))
+                  print(" ".join(cmd))
+                  if not dry:
+                      subprocess.run(cmd, check=True)
+                  print("::endgroup::")
+
+                  png.unlink(missing_ok=True)
+                  if not dry:
+                      webp.unlink()
+                      converted.append(str(rel))
+
+          Path("converted.txt").write_text("\n".join(converted))
+          print(f"Converted {len(converted)} file(s)")
+          PY
+
+      - name: Regenerate manifest
+        if: ${{ inputs.dry_run != 'true' }}
+        run: python3 tools/make_manifest.py
+
+      - name: Commit
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A content
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          n=$(wc -l < converted.txt | tr -d ' ')
+          git commit -m "chore: convert $n scene texture(s) WebP -> KTX2"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
