@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.2",
+ "version": "1.0.3",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -265,6 +265,12 @@
    "path": "ui/streaks_2048.webp",
    "sha256": "b51c0079bfabf6d44f6266064768f0e4466d8ceb05d41346244381a92de85452",
    "size": 152520,
+   "pack": "core"
+  },
+  {
+   "path": "yanavega-open-road.zip",
+   "sha256": "87304d86755646253f3b4d1d0a39074bbe8349dbe6bf351201ee011a944ec668",
+   "size": 8245545,
    "pack": "core"
   }
  ]
