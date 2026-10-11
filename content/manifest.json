@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.9",
+ "version": "1.0.10",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -9,12 +9,6 @@
   }
  },
  "files": [
-  {
-   "path": "Yanavega-changed-only.zip",
-   "sha256": "90c872d3f0c871a45c373bac582297572ab3fc0ea39e51a9f79fd99b27461d86",
-   "size": 1408865,
-   "pack": "core"
-  },
   {
    "path": "audio/eng_high.ogg",
    "sha256": "6f00dc8d1cd015c1b091fc537e7dd50e91b602f4bdcefcbd6502025330c0c829",
@@ -197,8 +191,8 @@
   },
   {
    "path": "game/car.js",
-   "sha256": "04b73680ce081473070cb22dd4996c941bfdb830547f5f02e09048ca0c874902",
-   "size": 2500,
+   "sha256": "ebcbf207e704d93a4b982cfa439659d5443666cc7a31fea05ca53c78c973ae66",
+   "size": 4139,
    "pack": "core"
   },
   {
@@ -215,8 +209,8 @@
   },
   {
    "path": "game/index.html",
-   "sha256": "55ab3d32aa92e1d9ecf1d083f05b01b77d3ccacb693f31038cd054dc17f5327d",
-   "size": 1834,
+   "sha256": "b1ce0e343e6d230336653d12cbfdf60860dd15dd31738655bc61cf4fcafc14b6",
+   "size": 1929,
    "pack": "core"
   },
   {
@@ -239,8 +233,8 @@
   },
   {
    "path": "game/openroad.js",
-   "sha256": "6fe45736383f340892cdb544164e2c9afddb2b5132fb91f8afecfe199a000316",
-   "size": 32395,
+   "sha256": "1d997a01da3c29f3dc256b1a8a1917e053498754b3ae54f1f60c67973a9c307d",
+   "size": 45535,
    "pack": "core"
   },
   {
@@ -257,8 +251,8 @@
   },
   {
    "path": "game/stage.js",
-   "sha256": "1b5fbeed1b803c7f6cb44a5ecd3ca50a6f65b30fba52ff633555a7f3184794f4",
-   "size": 3827,
+   "sha256": "4285e60394d1d63e472d68dae1471e33e075b616dab568b18bc3bb040168bb41",
+   "size": 4048,
    "pack": "core"
   },
   {
@@ -268,9 +262,33 @@
    "pack": "core"
   },
   {
+   "path": "lib/BasisTextureLoader.js",
+   "sha256": "912c6d7b4c1bc110f6e7c4f75f47902ce5e2b662ace029566d9538bd970bb34c",
+   "size": 19593,
+   "pack": "core"
+  },
+  {
    "path": "lib/GLTFLoader.js",
    "sha256": "5c15967ba830918a9caea6338712c994c354bccd4edc4569bde411c3ec06a3e6",
    "size": 96550,
+   "pack": "core"
+  },
+  {
+   "path": "lib/basis/basis_transcoder.js",
+   "sha256": "b352d4fb1b2b5f66877a37c418d061693cee99245bdaf38e6b6ba17c9f34a964",
+   "size": 62997,
+   "pack": "core"
+  },
+  {
+   "path": "lib/basis/basis_transcoder.wasm",
+   "sha256": "e7dcac729b9e38208a1382f17da3d64a3108a8390e95c912d24bd95b7bc2fb5b",
+   "size": 440267,
+   "pack": "core"
+  },
+  {
+   "path": "lib/ktx2-bridge.js",
+   "sha256": "19208d3b1b55f9eb4c7e10ce80e5bf8c016a84ec0e01a8326fb32c61f97c591f",
+   "size": 3773,
    "pack": "core"
   },
   {
@@ -373,6 +391,48 @@
    "path": "world/leaf.ktx2",
    "sha256": "7b321544a2f418b23725720ec17e877281105441db27d6736fd3b3804f3c601c",
    "size": 674585,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/flowers_sheet.webp",
+   "sha256": "ed0979630ccd88673497f407c9238669c873c404aff5ef36bdd89265ceddf27a",
+   "size": 91890,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/ground_detail.webp",
+   "sha256": "c4df78bba44dbb492839e31c2c04eba5ad66637a8c3598ccad1e38601ae802a3",
+   "size": 279094,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/plants_cluster.webp",
+   "sha256": "7bb3005195a56e29a6914409322c8efca5fcf2e8a1265b628210fa7186ce0b6a",
+   "size": 169946,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/tallgrass.webp",
+   "sha256": "2454b5a02e2bc5bcd021cd2ab152c0cb50d53868e177562c576261327aec5a10",
+   "size": 60082,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/trees_sheet.webp",
+   "sha256": "151b181e8bf49dc24e00a2ce0ac87efb36a1131bad4b46bffd1617f089873916",
+   "size": 100148,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/water_normal.webp",
+   "sha256": "e43b265e8b23d0480dd7862cb393c0c083dc2cbe439ff4f60520ff5ac64995a0",
+   "size": 252674,
+   "pack": "core"
+  },
+  {
+   "path": "world/new/water_photo.webp",
+   "sha256": "69d05d02cc73695d1165ab371ad9e2cf6908c7e441295eace4f0a0fb57b40c38",
+   "size": 190416,
    "pack": "core"
   },
   {
