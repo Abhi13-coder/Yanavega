@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "0.3.0",
+ "version": "1.0.5",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -91,6 +91,12 @@
    "path": "characters/male/skin.webp",
    "sha256": "dc0cf29606349264ce1bb19a5e8560a7fb84f59f1636d41932dd0e88270c5196",
    "size": 845240,
+   "pack": "core"
+  },
+  {
+   "path": "content.zip",
+   "sha256": "38c504530285119e1d8f5649036b27773d377602f663b3b96026de904412da69",
+   "size": 638307,
    "pack": "core"
   },
   {
