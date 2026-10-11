@@ -31,10 +31,17 @@ const texL=async(p,o)=>{o=o||{};
   return await YV.ktx2.loadTexture('/'+path,{srgb:!!o.srgb,rep:!!o.rep,mir:!!o.mir,aniso});
 };
 OR.load=async function(prog){
- if(this.ready)return;const steps=[['Car',()=>YV.car.load()],['Road',async()=>{T.roadC=await texL('world/road_color.ktx2',{srgb:1,rep:1});T.roadR=await texL('world/road_rough.ktx2',{rep:1});T.roadA=await texL('world/road_ao.ktx2',{rep:1})}],
+ if(this.ready)return;
+ const T=this.T={};
+ const steps=[
+  ['Car',()=>YV.car.load()],
+  ['Road',async()=>{T.roadC=await texL('world/road_color.ktx2',{srgb:1,rep:1});T.roadR=await texL('world/road_rough.ktx2',{rep:1});T.roadA=await texL('world/road_ao.ktx2',{rep:1})}],
   ['Land',async()=>{T.grass=await texL('world/grass.ktx2',{srgb:1,rep:1});T.ground=await texL('world/new/ground_detail.ktx2',{srgb:1,rep:1});T.water=await texL('world/new/water_photo.ktx2',{srgb:1,mir:1});T.waterN=await texL('world/new/water_normal.ktx2',{rep:1});T.sky=await texL('world/sky.ktx2',{srgb:1,mir:1})}],
-  ['Trees',async()=>{T.leaf=await texL('world/leaf.ktx2',{srgb:1});T.bark=await texL('world/bark.ktx2',{srgb:1,mir:1});T.tallg=await texL('world/new/tallgrass.ktx2',{srgb:1});T.plants=await texL('world/new/plants_cluster.ktx2',{srgb:1});T.flowers=await texL('world/new/flowers_sheet.ktx2',{srgb:1});T.treesheet=await texL('world/new/trees_sheet.ktx2',{srgb:1})}],['Engine',()=>loadAudio()]];
- const T=this.T={};for(let i=0;i<steps.length;i++){await steps[i][1]();prog&&prog((i+1)/steps.length)}this.ready=true};
+  ['Trees',async()=>{T.leaf=await texL('world/leaf.ktx2',{srgb:1});T.bark=await texL('world/bark.ktx2',{srgb:1,mir:1});T.tallg=await texL('world/new/tallgrass.ktx2',{srgb:1});T.plants=await texL('world/new/plants_cluster.ktx2',{srgb:1});T.flowers=await texL('world/new/flowers_sheet.ktx2',{srgb:1});T.treesheet=await texL('world/new/trees_sheet.ktx2',{srgb:1})}],
+  ['Engine',()=>loadAudio()]
+ ];
+ for(let i=0;i<steps.length;i++){await steps[i][1]();prog&&prog((i+1)/steps.length)}
+ this.ready=true};
 let ABUF=null;
 async function loadAudio(){YV.audio.ensure();const ctx=YV.audio.ctx;if(!ctx)return;const dec=async p=>{const ab=await YV.assets.buffer(p);return new Promise((ok,no)=>{const pr=ctx.decodeAudioData(ab.slice(0),ok,no);if(pr&&pr.catch)pr.catch(()=>{})})};
  const get=async n=>{if(YV.cfg.get('aud.spatial')){try{return{b:await dec('audio/eng_'+n+'_sp.m4a'),sp:1}}catch(e){}}return{b:await dec('audio/eng_'+n+'.ogg'),sp:0}};
@@ -343,8 +350,8 @@ const sky=new THREE.Mesh(new THREE.SphereGeometry(2000,32,16),skyMat);sky.frustu
  const todF={'Night':0.05,'Dawn':0.35,'Sunset':0.4,'Noon':1}[tod]||0.5;
  skyMat.uniforms.uTod.value=todF;skyMat.uniforms.uCloud.value=WW.g;
  sun.color.setHex(TD.col);sun.intensity=TD.I*WW.d;hemi.intensity=TD.hemi*WW.d;const sd=new THREE.Vector3(...TD.sun).normalize();
- [roadMat,waterMat,YV.car.mat].forEach(m=>m.envMapIntensity=(m===waterMat?1.3:1)*(TD.env*(.6+.4*WW.d)+(wx==='Rain'||wx==='Storm'?.25:0)));
- roadMat.roughness=wx==='Rain'||wx==='Storm'?.55:wx==='Clear'?.95:.8;roadMat.color.setScalar(wx==='Rain'||wx==='Storm'?.72:1);
+ [roadMat,waterMat,YV.car.mat].forEach(m=>{if(!m)return;m.envMapIntensity=(m===waterMat?1.3:1)*(TD.env*(.6+.4*WW.d)+(wx==='Rain'||wx==='Storm'?0.25:0));});
+ roadMat.roughness=wx==='Rain'||wx==='Storm'?0.55:(wx==='Clear'?0.95:0.8);roadMat.color.setScalar(wx==='Rain'||wx==='Storm'?0.72:1);
  R.toneMappingExposure=tod==='Night'?1.25:1.05;const night=tod==='Night'||wx==='Storm'||(wx==='Fog'&&tod!=='Noon');hl.forEach(l=>l.intensity=night?3.2:0);
  const shQ={Off:0,Low:512,Medium:1024,High:2048,Ultra:3072}[C.get('gfx.shadow')]||0;if(shQ){R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;sun.castShadow=true;sun.shadow.mapSize.set(shQ,shQ);const sc=sun.shadow.camera;sc.left=sc.bottom=-26;sc.right=sc.top=26;sc.near=1;sc.far=200;sun.shadow.bias=-.0004;car.body.castShadow=true;Object.values(car.wheels).forEach(w=>w.sp.castShadow=true);roadMat.userData.rs=1;shadow.visible=false}
  // state
@@ -387,18 +394,18 @@ const sky=new THREE.Mesh(new THREE.SphereGeometry(2000,32,16),skyMat);sky.frustu
  const applyRes=()=>{const f=C.get('gfx.fsr'),sc={'Ultra Quality':.77,Quality:.67,Balanced:.59,Performance:.5}[f]||clamp(C.get('gfx.resScale')/100,.4,1.5),dpr=Math.min(window.devicePixelRatio||1,2.5),w=Math.round(innerWidth*dpr),hh=Math.round(innerHeight*dpr);R.setPixelRatio(1);R.setSize(w,hh,false);cam.aspect=w/hh;cam.updateProjectionMatrix();OR.fsr.size(w,hh,Math.min(sc,1.5));OR.scaleInfo=f+' '+Math.round(sc*100)+'%'};applyRes();const onRs=()=>applyRes();addEventListener('resize',onRs);
  $('.vig',dr).style.opacity=C.get('gfx.vig')/100;
  // sim
- const kmh=()=>Math.abs(V.speed)*3.6*(C.get('gp.units')==='mph'?.6214:1);const GR=[0,3.6,2.3,1.6,1.2,.95,.78];
+ const kmh=()=>Math.abs(V.speed)*3.6*(C.get('gp.units')==='mph'?0.6214:1);const GR=[0,3.6,2.3,1.6,1.2,.95,.78];
  const step=dt=>{
   const q=road.at(V.s),ds=(V.x-q.x)*Math.sin(q.h)+(V.z-q.z)*Math.cos(q.h);V.s=Math.max(0,V.s+ds);const q2=road.at(V.s);V.d=(V.x-q2.x)*q2.nx+(V.z-q2.z)*q2.nz;
   const kb=inp.kb;let st=(inp.right-inp.left)+inp.wheel+inp.tilt+((kb.ArrowRight||kb.KeyD)?1:0)-((kb.ArrowLeft||kb.KeyA)?1:0);const gp=navigator.getGamepads&&navigator.getGamepads()[0];let thr=inp.gas||(kb.ArrowUp||kb.KeyW)?1:0,brk=inp.brake||(kb.ArrowDown||kb.KeyS||kb.Space)?1:0;
   if(gp){if(Math.abs(gp.axes[0])>C.get('ctl.padDead')/100)st+=gp.axes[0];if(gp.buttons[7])thr=Math.max(thr,gp.buttons[7].value);if(gp.buttons[6])brk=Math.max(brk,gp.buttons[6].value)}
   if(C.get('ctl.autoAcc')&&!brk)thr=1;st=clamp(st,-1,1);V.thr=lerp(V.thr,thr,1-Math.exp(-dt*9));V.brk=lerp(V.brk,brk,1-Math.exp(-dt*14));
-  const onRoad=Math.abs(V.d)<RW/2+.4,wet=wx==='Rain'||wx==='Storm',grip=(onRoad?(wet?.82:1):.55)*(1+.0*0),vmax=75;
+  const onRoad=Math.abs(V.d)<RW/2+.4,wet=wx==='Rain'||wx==='Storm',grip=(onRoad?(wet?0.82:1):.55)*(1+.0*0),vmax=75;
   const steerT=st*(C.get('ctl.steer')==='Touch buttons'?1:1);V.steer+=(steerT-V.steer)*(1-Math.exp(-dt*(Math.abs(steerT)>.01?(inp.left||inp.right?5.5:12):10)));
   let a=0;if(V.speed>=0&&V.thr>0)a+=V.thr*10.5*(1-Math.pow(V.speed/vmax,1.6));if(V.brk>0){if(V.speed>.6)a-=V.brk*16*grip;else if(V.speed>-9)a-=V.brk*5}
-  a-=.0007*V.speed*Math.abs(V.speed)+(onRoad?.12:2.6)*Math.sign(V.speed);if(!onRoad&&V.speed>34)a-=(V.speed-34)*.6;V.speed+=a*dt;if(Math.abs(V.speed)<.02&&!V.thr&&!V.brk)V.speed=0;
+  a-=.0007*V.speed*Math.abs(V.speed)+(onRoad?0.12:2.6)*Math.sign(V.speed);if(!onRoad&&V.speed>34)a-=(V.speed-34)*.6;V.speed+=a*dt;if(Math.abs(V.speed)<.02&&!V.thr&&!V.brk)V.speed=0;
   const ang=V.steer*lerp(.55,.07,clamp(Math.abs(V.speed)/55,0,1));let yr=-V.speed*Math.tan(ang)/2.7;const lim=9.5*grip/Math.max(Math.abs(V.speed),1);yr=clamp(yr,-lim,lim);V.yaw+=yr*dt;V.yr=yr;
-  const fx=Math.sin(V.yaw),fz=Math.cos(V.yaw),kk=1-Math.exp(-dt*grip*6.5);V.vx+=(fx*V.speed-V.vx)*kk;V.vz+=(fz*V.speed-V.vz)*kk;const lat=V.vx*fz-V.vz*fx;V.slip=clamp(Math.abs(lat)/8+(V.brk>.5&&V.speed>15?.5*V.brk:0)+(wet?.0:0),0,1);V.speed-=Math.abs(lat)*.35*dt*Math.sign(V.speed);
+  const fx=Math.sin(V.yaw),fz=Math.cos(V.yaw),kk=1-Math.exp(-dt*grip*6.5);V.vx+=(fx*V.speed-V.vx)*kk;V.vz+=(fz*V.speed-V.vz)*kk;const lat=V.vx*fz-V.vz*fx;V.slip=clamp(Math.abs(lat)/8+(V.brk>.5&&V.speed>15?0.5*V.brk:0)+0,0,1);V.speed-=Math.abs(lat)*.35*dt*Math.sign(V.speed);
   V.x+=V.vx*dt;V.z+=V.vz*dt;if(Math.abs(V.d)>90){const k2=(Math.abs(V.d)-90)*.5*dt;V.x-=q2.nx*Math.sign(V.d)*k2*10;V.z-=q2.nz*Math.sign(V.d)*k2*10;V.speed*=.98}
   V.dist+=Math.hypot(V.vx,V.vz)*dt;
   let rp=Math.abs(V.speed)*GR[V.gear]*82;if(rp>6100&&V.gear<6)V.gear++;else if(rp<2300&&V.gear>1)V.gear--;rp=Math.abs(V.speed)*GR[V.gear]*82;V.rpmT=clamp(Math.max(rp,900+V.thr*3400*(1-clamp(Math.abs(V.speed)/14,0,1))),900,7000);V.rpm+=(V.rpmT-V.rpm)*(1-Math.exp(-dt*(V.thr>.1?8:5)))};
@@ -417,7 +424,7 @@ const sky=new THREE.Mesh(new THREE.SphereGeometry(2000,32,16),skyMat);sky.frustu
   const sa=-V.steer*lerp(.55,.07,clamp(Math.abs(V.speed)/55,0,1));
   if(car.wheels.FL)car.wheels.FL.piv.rotation.y=sa;if(car.wheels.FR)car.wheels.FR.piv.rotation.y=sa;
   // tail lights brighter when braking; headlights always on at night
-  if(car.tailL){const brkOn=V.brk>.1;car.tailL.material.color.setHex(brkOn?0xff1100:0x880000);car.tailL.material.opacity=brkOn?.95:.55;car.tailR.material.color.copy(car.tailL.material.color);car.tailR.material.opacity=car.tailL.material.opacity}
+  if(car.tailL){const brkOn=V.brk>.1;car.tailL.material.color.setHex(brkOn?0xff1100:0x880000);car.tailL.material.opacity=brkOn?0.95:0.55;car.tailR.material.color.copy(car.tailL.material.color);car.tailR.material.opacity=car.tailL.material.opacity}
   if(car.headL){const night=tod==='Night'||tod==='Dawn';car.headL.visible=car.headR.visible=night||tod==='Sunset'}
   shadow.position.set(V.x,V.y-GOFF+.05,V.z);shadow.rotation.set(-Math.PI/2,0,-V.yaw+Math.PI/2*0,'XYZ');shadow.rotation.z=V.yaw;shadow.rotation.x=-Math.PI/2+V.pitch*0;
   sun.position.set(V.x+sd.x*70,V.y+sd.y*70,V.z+sd.z*70);sun.target.position.set(V.x,V.y,V.z);sun.target.updateMatrixWorld();sky.position.copy(cam.position)};
@@ -427,7 +434,7 @@ const sky=new THREE.Mesh(new THREE.SphereGeometry(2000,32,16),skyMat);sky.frustu
    if(camMode===4){const t=tAbs*.12;target.x+=Math.cos(t)*3;target.y+=Math.sin(t*1.3)*.6}
    if(!camInit){camPos.copy(target);camInit=true}const lag=1-Math.exp(-dt*(14-C.get('cam.lag')*.09));camPos.lerp(target,lag);cam.position.copy(camPos);cam.lookAt(look)}
   else{const l=[null,[0,.78,.9],[.35,.42,-.1],[0,-.2,2.5]][camMode];const p=new THREE.Vector3(l[0],l[1],l[2]).applyMatrix4(car.root.matrixWorld);cam.position.copy(p);const lk=new THREE.Vector3(l[0],l[1]-.02,l[2]+20).applyMatrix4(car.root.matrixWorld);cam.lookAt(lk);camInit=false}
-  const sh=C.get('cam.shake')/100*clamp(sp/70,0,1)*(camMode===0?.025:.012);cam.position.x+=(Math.random()-.5)*sh;cam.position.y+=(Math.random()-.5)*sh;
+  const sh=C.get('cam.shake')/100*clamp(sp/70,0,1)*(camMode===0?0.025:0.012);cam.position.x+=(Math.random()-.5)*sh;cam.position.y+=(Math.random()-.5)*sh;
   // keep camera above the ground
   const q=road.at(V.s),gy=road.ground(V.s,(cam.position.x-q.x)*q.nx+(cam.position.z-q.z)*q.nz);if(cam.position.y<gy+.5)cam.position.y=gy+.5};
  const updateHud=()=>{const k=kmh(),e=id=>document.getElementById(id);e('sp').textContent=Math.round(k);e('un').textContent=C.get('gp.units');e('gr').textContent=V.speed<-.5?'R':(Math.abs(V.speed)<.3?'N':V.gear);e('rpm').style.width=clamp((V.rpm-900)/6100*100,0,100)+'%';e('rpm').style.background=V.rpm>6200?'#ff5c5c':'';
@@ -436,7 +443,7 @@ const sky=new THREE.Mesh(new THREE.SphereGeometry(2000,32,16),skyMat);sky.frustu
   const m=e('mm').getContext('2d'),W=200;m.clearRect(0,0,W,W);m.save();m.beginPath();m.arc(100,100,98,0,6.283);m.fillStyle='rgba(10,6,20,.62)';m.fill();m.clip();m.translate(100,130);const sc=.42;m.strokeStyle='#ff4fc8';m.lineWidth=5;m.lineCap='round';m.beginPath();let first=true;
   for(let s=V.s-60;s<V.s+240;s+=8){if(s<0)continue;const p=road.at(s),dx=p.x-V.x,dz=p.z-V.z,rx=-(dx*Math.cos(V.yaw)-dz*Math.sin(V.yaw)),ry=-(dx*Math.sin(V.yaw)+dz*Math.cos(V.yaw));const X=rx*sc,Y=ry*sc;if(first){m.moveTo(X,Y);first=false}else m.lineTo(X,Y)}m.stroke();m.fillStyle='#fff';m.beginPath();m.moveTo(0,-9);m.lineTo(7,8);m.lineTo(-7,8);m.closePath();m.fill();m.restore()};
  // main loop
- let rainOn=WW.rain>0;if(rainOn){rain.visible=true;rain.material.opacity=(WW.rain>1?.55:.38)}else{rain.visible=false}
+ let rainOn=WW.rain>0;if(rainOn){rain.visible=true;rain.material.opacity=(WW.rain>1?0.55:0.38)}else{rain.visible=false}
  let wetness=0; // accumulates while raining, dries when clear
  const WET_RATE=0.12, DRY_RATE=0.035; // ~8s to full wet, ~30s to dry
  const loop=now=>{if(stopped)return;requestAnimationFrame(loop);const cap=C.get('gfx.fps')==='Unlimited'?0:+C.get('gfx.fps');if(cap&&now-lastT<1000/cap-3)return;let dt=Math.min((now-lastT)/1000,.05);lastT=now;if(!paused){acc+=dt;tAbs+=dt;while(acc>1/90){step(1/90);acc-=1/90}place(dt);camera(dt);ensureChunks(false);
