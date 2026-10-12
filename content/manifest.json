@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": "1.0.17",
+ "version": "1.0.18",
  "minApp": 1,
  "entry": "game/index.html",
  "packs": {
@@ -9,12 +9,6 @@
   }
  },
  "files": [
-  {
-   "path": "Yanavega-fix.zip",
-   "sha256": "2c9e9c611ebc0e8cb71b73446ce0b32f72a862d7c7790cb00c0dc081f85d5584",
-   "size": 17741,
-   "pack": "core"
-  },
   {
    "path": "audio/eng_high.ogg",
    "sha256": "6f00dc8d1cd015c1b091fc537e7dd50e91b602f4bdcefcbd6502025330c0c829",
@@ -239,8 +233,8 @@
   },
   {
    "path": "game/openroad.js",
-   "sha256": "3e453d5c7115f560eab61b706eb3bb91b94fdf3cdaeed2969990fe9e10fe0851",
-   "size": 44867,
+   "sha256": "e7419a0731c09a1345b2764230e7487c2b3d01c38ffef33d81e84c5117ad93e3",
+   "size": 44903,
    "pack": "core"
   },
   {
