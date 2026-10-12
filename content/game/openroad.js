@@ -48,7 +48,7 @@ async function loadAudio(){YV.audio.ensure();const ctx=YV.audio.ctx;if(!ctx)retu
  try{ABUF={low:await get('low'),mid:await get('mid'),high:await get('high')}}catch(e){console.warn('engine audio',e);ABUF=null}}
 /* ---------------- world building */
 function buildChunk(k,env){
- const road=env.road,g=new THREE.Group(),N=CH+1,P=[],U=[],I=[],Cc=[];const mk=(pos,uv,idx,col,norm)=>{const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));if(col)geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));geo.setIndex(idx);geo.computeVertexNormals();return geo};
+ const T=env.T||{},uTime=env.uTime,road=env.road,g=new THREE.Group(),N=CH+1,P=[],U=[],I=[],Cc=[];const mk=(pos,uv,idx,col,norm)=>{const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));if(col)geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));geo.setIndex(idx);geo.computeVertexNormals();return geo};
  // road ribbon
  for(let i=0;i<N;i++){const s=(k*CH+i)*SEG,q=road.at(s),w=RW/2;P.push(q.x+q.nx*w,q.y+.03,q.z+q.nz*w,q.x-q.nx*w,q.y+.03,q.z-q.nz*w);U.push(s/(RW*2),0,s/(RW*2),1)}
  for(let i=0;i<CH;i++){const a=2*i,b=a+1,c=a+2,d=a+3;I.push(a,b,c,b,d,c)}
@@ -273,7 +273,7 @@ OR.begin=function(cfg){
     ' transformed.y+=sin(uTime*2.4+position.x*.4)*.06*w;');
  };
  applyToon(grassMat,5);applyToon(barkMat,4);applyToon(leafMat,4);applyToon(roadMat,6);
- const env={road,roadMat,grassMat,waterMat,barkMat,leafMat},chunks=new Map();
+ const env={road,roadMat,grassMat,waterMat,barkMat,leafMat,T,uTime},chunks=new Map();
  // sky dome
  const skyMat=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,uniforms:{
   tSky:{value:T.sky},uTint:{value:new THREE.Color(1,1,1)},uBr:{value:1},uHaze:{value:new THREE.Color(.75,.85,.95)},uFlash:{value:0},
